@@ -271,36 +271,37 @@
     </div>
 
     <script>
-       $(function(){
-            $('#news_wrap h2 a').on("click", function (e) {
-                e.preventDefault();
-                $('#news_wrap h2 a').removeClass("on");
-                $(this).addClass("on");
-                $.ajax({
-                    url: $(this).attr("href"),
-                    dataType: "xml",
-                    success: function (data) {
-                        console.log(data);
-                        $('#news_list').empty();
-    
-                        $.each($(data).find('item'), function (i, d) {
-                            if (i == 5) return false;
-    
-                            var title = $(this).find('title').text();
-                            var link = $(this).find('link').text();
-                            var title = $(this).find('pubDate').text();
-                            date = new Date(date);
-                            var m = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    
-                            $("#new_list").append(`<p><a href=${link}>${title}</a><i>${m}</i></p>`);
-                            
-                        });
-                    }
-                });
-                });
-    
-                $("#news_wrap h2 a").eq(0).click();
-            }); 
+        var Link =$('#news_wrap h2 a');
+        Link.on('click',function(e){
+            e.preventDefault();
+            Link.removeClass('on');
+            $(this).addClass('on');
+            
+            $.ajax({
+                url:$(this).attr('href'),
+                dataType:'xml',
+                success:function(data){
+                    console.log(data);
+                    $('#news_list').empty();
+                    $.each($(data).find('item'),function(i,d){
+                        if(i==5) return false;
+                    var title=$(this).find('title').text();
+                    var link=$(this).find('link').text();
+                    var pubDate=$(this).find('pubDate').text();
+                    date=new Date(pubDate)
+                    var m=date.getFullYear()+ "-" + (date.getMonth()+1)+"-"+date.getDate();
+                    var str=`<p><a href=${link}>${title}</a><i>${m}</i></p>`
+                    $('#news_list').append(str);
+
+                    });
+                }
+            }); //ajax
+        }); // click
+        $('#news_wrap a').first().click();
+
+        $('document').on('mouseover','p',function(){
+            console.log()
+        })
     </script>
 </body>
 
