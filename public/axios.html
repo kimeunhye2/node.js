@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> axios로 요청하기</h1>
+</body>
+<script>
+axios({
+  method: 'get',
+  url: '/student/',
+ResponseType: 'JSON'
+}).then(function(response){
+    // console.log(response.data[0]);
+    //asios는 JSON형태로 반환 ->객체로 변환한다.
+    console.log(JSON.parse(response.data));
+    var data=JSON.parse(response.data);
+    data.foreach(element =>{
+        document.write(element.id+'<br>');
+    })
+})
+
+</script>
+</html>
